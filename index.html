@@ -1,58 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="robots" content="noindex,nofollow">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>CSS Selectors by NAME HERE</title>
-        <link href="css/pre.css" rel="stylesheet">
-        <link href="css/main.css" rel="stylesheet">
-        <style>
-            div#id-div{
-                background-color:yellow;
-            }
-        </style>
-    </head>
-    <body>
-        <header>
-            
-            <h1 class="page-header">CSS Selectors by NAME HERE</h1>
-            
-        <nav>
-            <ul>
-                <li><a href="#id">id</a></li>
-                <li><a href="#class">class</a></li>
-                <li><a href="#compound">compound</a></li>
-            </ul>
-        </nav> 
-    </header>           
-        <p>This page demonstrates how CSS selectors work.</p>
+ <head>
+     <title>Form Processing</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/forms.css">
+ </head>
+ <body>
+     <header>
+     <h1 class="page-header">Form Processing</h1>
+        <nav class="topnav" id="myTopnav">
+            <a href="index.html" class="active">Home</a>
+            <a href="#">Link</a>
+            <a href="#">Link</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+        </nav>
+     </header>
+     
+   <main class="wrapper">
+ 
+    <h2 class="subheader">An HTML/CSS/JS example by NAME HERE</h2>
+    <div id="output">
+      <p>The following is a demonstration of a form that can be filled out and when data is entered, the data can be seen on the page.</p>
+      <p>Any form fields that have names with an underscore between significant words, such as <b>First_Name</b> 
+        will be split into separate words, for example <b>First Name</b> upon submission.</p>  
+    <form method="get" action="" class="main-form">
+      <div>
+        <label for="FirstName">First Name</label><br>
+        <input type="text" name="First_Name" id="FirstName" placeholder="First Name" required autofocus>
+      </div>
+     <div>
+        <label for="Last Name">Last Name</label><br>
+        <input type="text" name="Last_Name" id="LastName" placeholder="Last Name" required autofocus>
+      </div>
+     <div>
+        <label for="Email">Email</label><br>
+        <input type="text" name="Email" id="Email" placeholder="Email" required autofocus>
+      </div>
+     <div>
+        <label for="Address">Address</label><br>
+        <input type="text" name="Address" id="Address" placeholder="Address" required autofocus>
+      </div>
+     <div>
+        <label for="City">City</label><br>
+        <input type="text" name="City" id="City" placeholder="City" required autofocus>
+      </div>
+     <div>
+        <label for="State">State</label><br>
+        <input type="text" name="State" id="State" placeholder="State" required autofocus>
+      </div>
+     <div>
+        <label for="Postal Code">Postal Code</label><br>
+        <input type="text" name="Postal_Code" id="PostalCode" placeholder="Postal Code" required autofocus>
+     </div>
+      <div>
+        <input type="submit">
+      </div>
+    </form>
+  </div>
+    <footer>
+      <p><small>&copy; 2021-<span id="this-year"></span> by 
+          YOUR NAME HERE, All Rights Reserved ~ 
+          <a id="html-checker" href="#" target="_blank">Check HTML</a> ~ 
+          <a id="css-checker" href="#" target="_blank">Check CSS</a></small>
+     </p>
+    </footer>
+  </main>
+  <script src="js/main.js"></script> 
+  <script>
 
-        <fieldset>
-            <legend><a id="id">id</a></legend>
-            <p>ids can be applied to only one item on a page</p>
-            <p>Here's how we hook an id attribute to an element:</p>
-            <pre><code>id="id-div"</code></pre>
-            <p>Here's how the CSS is applied to the element:</p>
-            <pre><code>div#id-div{
-    background-color:yellow;
-}</code></pre>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
 
+    if(queryString.length > 0){//data submitted
+      let myOutput = `<div id="container">`;
 
-            <p>Here's what it looks like:</p>
-            <div id="id-div">Inside my-div</div>
-        </fieldset>
+      urlParams.forEach(function(value,key){
 
-        <footer class="page-footer">
-            <p><small>&copy; 2023 by 
-                NAME HERE, All Rights Reserved ~ 
-                <a id="html-checker" href="#" target="_blank">Check HTML</a> ~ 
-                <a id="css-checker" href="#" target="_blank">Check CSS</a></small>
-           </p>
-          </footer>
-        <script>
-            document.getElementById("html-checker").setAttribute("href","https://validator.w3.org/nu/?doc=" + location.href);
-            document.getElementById("css-checker").setAttribute("href","https://jigsaw.w3.org/css-validator/validator?uri=" + location.href);  
-        </script>
-    </body>
+        key = key.split("_").join(" ");
+        myOutput += `<p>${key}: ${value}</p>`;
+      });
+      myOutput += `<p><a href="index.html">CLEAR</a></p>`; 
+      myOutput += `</div>`;
+      document.querySelector("#output").innerHTML = myOutput;
+    }
+
+   var formfield = document.getElementById('formfield');
+
+   function add(){
+    var newField = document.createElement('input');
+    newField.setAttribute('type','text');
+    newField.setAttribute('First Name','text');
+    newField.setAttribute('Last Name','text');
+    newField.setAttribute('Email','text');
+    newField.setAttribute('Address','text');
+    newField.setAttribute('City','text');
+    newField.setAttribute('State','text');
+    newField.setAttribute('Postal Code','text');
+    newField.setAttribute('siz',50);
+    newField.setAttribute('placeholder','Optional Field');
+    formfield.appendChild(newField);
+   }
+
+   function remove(){
+    var input_tags = formfield.getElementsByTagName('input');
+    if(input_tags.length > 2) {
+     formfield.removeChild(input_tags[(input_tags.length) - 1]);
+    }
+   }
+  </script>  
+ </body>
 </html>
